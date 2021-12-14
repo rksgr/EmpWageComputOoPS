@@ -34,9 +34,43 @@ public class EmpWageComputation {
         }
         return part_time_wage;
     }
+    /*
+    Use case 4: Solve using switch statement
+    */
+    public double empDailyWageSwitchCase(){
+        double emp_daily_wage = 0;
+        boolean emp_pres = empIsPresent();
+        int day_len = 0;
+        // check if employee present or not
+        if (emp_pres){
+            // check if employee works part time or full time
+            double random_num = Math.random();
+            if (random_num>0.5){
+               day_len = 1; // part time work
+            }else {
+               day_len = 2;  // full time work
+            }
+        }else {
+            day_len = 0;     
+        }
+
+        // use switch case statement for wages
+        switch(day_len){
+            case 0:
+                emp_daily_wage = empDailyWage(false);
+                break;
+            case 1:
+                emp_daily_wage = empDailyWage(true);
+                break;
+            case 2:
+                emp_daily_wage = empDailyWage();
+                break;
+        }
+        return emp_daily_wage;
+    }
     public static void main(String []args){
         EmpWageComputation ewc = new EmpWageComputation();
-        double emp_part_time_wage = ewc.empDailyWage(true);
-        System.out.println("The part time wage of the employee = " + emp_part_time_wage);
+        double emp_daily_wage = ewc.empDailyWageSwitchCase();
+        System.out.println("The daily wage of the employee = " + emp_daily_wage);
     }
 }
