@@ -2,7 +2,8 @@
 package com.mycompany.dec_13_empwagecomput_oops;
 
 public class EmpWageComputation {
-    
+    private static final int WAGE_PER_HR = 20;
+    private static final int FULL_DAY_HR = 8; 
     /*
     Use case 1: Check whether employee is present
     */
@@ -17,9 +18,7 @@ public class EmpWageComputation {
     Use case 2: Calculate Daily Employee Wage
     */
     public double empDailyWage(){
-        int wage_per_hour = 20;
-        int full_day_hour = 8;
-        double emp_daily_wage = wage_per_hour*full_day_hour;
+        double emp_daily_wage = WAGE_PER_HR*FULL_DAY_HR;
         return emp_daily_wage;
     }
     /*
@@ -78,6 +77,30 @@ public class EmpWageComputation {
             emp_month_wage += empDailyWageSwitchCase();
         }
         return emp_month_wage;
+    }
+    /*
+    Use Case 6: Calculate wages till days or working hours reached for month
+    */
+    public double empWageConditional(){
+        double tot_wage =0;
+        int MAX_WORKG_HRS = 100;
+        int MAX_WORKG_DAYS  = 20;
+        int days = 0;
+        int workg_hrs = 0;
+        int workg_days = 0;
+        while ((days<30) &&(workg_hrs<=MAX_WORKG_HRS) &&(workg_days<=MAX_WORKG_DAYS)){
+            
+            tot_wage +=empDailyWageSwitchCase();
+            if (empDailyWageSwitchCase()==160.0){
+                workg_hrs+=8;
+                workg_days++;
+            } else if (empDailyWageSwitchCase()==160.0){
+                workg_hrs+=4;
+                workg_days++; 
+            }
+            days++;
+        }
+        return tot_wage;
     }
     // Main method
     public static void main(String []args){
