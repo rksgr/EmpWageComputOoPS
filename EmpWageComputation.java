@@ -82,14 +82,13 @@ public class EmpWageComputation {
     Use Case 6: Calculate wages till days or working hours reached for month
     */
     public double empWageConditional(){
-        double tot_wage =0;
         int MAX_WORKG_HRS = 100;
         int MAX_WORKG_DAYS  = 20;
+        double tot_wage =0;
         int days = 0;
         int workg_hrs = 0;
         int workg_days = 0;
-        while ((days<30) &&(workg_hrs<=MAX_WORKG_HRS) &&(workg_days<=MAX_WORKG_DAYS)){
-            
+        while ((days<30) &&(workg_hrs<=MAX_WORKG_HRS) &&(workg_days<=MAX_WORKG_DAYS)){          
             tot_wage +=empDailyWageSwitchCase();
             if (empDailyWageSwitchCase()==160.0){
                 workg_hrs+=8;
@@ -102,10 +101,12 @@ public class EmpWageComputation {
         }
         return tot_wage;
     }
+    
     // Main method
     public static void main(String []args){
         EmpWageComputation ewc = new EmpWageComputation();
-        double emp_monthly_wage = ewc.empMonthlyWage();
-        System.out.println("The monthly wage of the employee = " + emp_monthly_wage);
+        double tot_cond_wage = ewc.empWageConditional();
+        System.out.println("The conditional monthly wage of the employee = " 
+                + tot_cond_wage);
     }
 }
