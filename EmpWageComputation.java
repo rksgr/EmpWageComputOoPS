@@ -146,12 +146,9 @@ public class EmpWageComputation {
                 + "to be calculated: ");
         Scanner sc = new Scanner(System.in);
         int no_comp = sc.nextInt();
-        // declare an array of array
-        int[][] comp_norm = new int[no_comp][];
-        String [] comp_name = new String[no_comp];
-        
+       
+        // Take input from user about each company
         for (int i=0;i<no_comp;i++){
-            // Take input from user about each company
             System.out.println("Enter name of company : ");
             Scanner sc0 = new Scanner(System.in);
             String company_nam = sc0.next();
@@ -167,7 +164,7 @@ public class EmpWageComputation {
             System.out.println("Enter number of hours in full day in "+company_nam+ ": ");
             Scanner sc4 = new Scanner(System.in);
             int full_day_hours = sc4.nextInt();  
-
+            
             double emp_salary = monthlyEmployeeWageMulti(working_days,wage_per_hr,
                     working_hrs_per_month,full_day_hours);
             System.out.println("The monthly salary of the employee in "+ 
