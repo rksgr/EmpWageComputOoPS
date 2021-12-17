@@ -4,6 +4,12 @@ package com.mycompany.dec_13_empwagecomput_oops;
 public class EmpWageComputation {
     private static final int WAGE_PER_HR = 20;
     private static final int FULL_DAY_HR = 8; 
+    private static final int MAX_WORKG_DAYS = 20; 
+    private static final int MAX_WORKG_HRS = 100; 
+    private static final int TOTAL_DAYS_IN_MONTH = 30; 
+    private static final int IS_ABSENT = 0;
+    private static final int IS_PART_TIME = 1;
+    private static final int IS_FULL_TIME = 2;
     /*
     Use case 1: Check whether employee is present
     */
@@ -101,12 +107,42 @@ public class EmpWageComputation {
         }
         return tot_wage;
     }
-    
+    /*
+    Use Case 7: Class method to compute employee wage
+    */
+    public static double empWageCalculate(){
+        double emp_daily_wage = 0;
+        int days = 0, workg_hrs = 0, workg_days = 0;
+        
+        while ((days<TOTAL_DAYS_IN_MONTH) && (workg_hrs<=MAX_WORKG_HRS) 
+                && (workg_days<=MAX_WORKG_DAYS)){
+            // generate a random number out of 0,1 and 2
+            int absent_or_part_or_full = (int)((Math.random())*10)%3;
+            // check if employee works part time or full time or is absent
+            switch (absent_or_part_or_full){
+                    case IS_ABSENT: // absent
+                        emp_daily_wage += 0;
+                        break;
+                    case IS_PART_TIME: // part time
+                        workg_hrs+=4;
+                        workg_days++;
+                        emp_daily_wage += 0.5*WAGE_PER_HR*FULL_DAY_HR ;
+                        break;
+                    case IS_FULL_TIME: // full time
+                        workg_hrs+=8;
+                        workg_days++;
+                        emp_daily_wage += WAGE_PER_HR*FULL_DAY_HR ;
+                        break;
+            }
+            days++;
+        }
+        return emp_daily_wage;
+    }
+
     // Main method
     public static void main(String []args){
-        EmpWageComputation ewc = new EmpWageComputation();
-        double tot_cond_wage = ewc.empWageConditional();
-        System.out.println("The conditional monthly wage of the employee = " 
-                + tot_cond_wage);
+        double tot_month_wage = empWageCalculate();
+        System.out.println("The total conditional monthly wage of the employee = " 
+                + tot_month_wage);
     }
 }
