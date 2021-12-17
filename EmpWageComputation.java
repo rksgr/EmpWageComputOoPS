@@ -1,5 +1,5 @@
-
 package com.mycompany.dec_13_empwagecomput_oops;
+import java.util.Scanner;
 
 public class EmpWageComputation {
     private static final int WAGE_PER_HR = 20;
@@ -91,9 +91,8 @@ public class EmpWageComputation {
         int MAX_WORKG_HRS = 100;
         int MAX_WORKG_DAYS  = 20;
         double tot_wage =0;
-        int days = 0;
-        int workg_hrs = 0;
-        int workg_days = 0;
+        int days = 0, workg_hrs = 0, workg_days = 0;
+        // Till maximum hours or maximum days are reached in a month
         while ((days<30) &&(workg_hrs<=MAX_WORKG_HRS) &&(workg_days<=MAX_WORKG_DAYS)){          
             tot_wage +=empDailyWageSwitchCase();
             if (empDailyWageSwitchCase()==160.0){
@@ -114,6 +113,7 @@ public class EmpWageComputation {
         double emp_daily_wage = 0;
         int days = 0, workg_hrs = 0, workg_days = 0;
         
+        // Till maximum hours or maximum days are reached in a month
         while ((days<TOTAL_DAYS_IN_MONTH) && (workg_hrs<=MAX_WORKG_HRS) 
                 && (workg_days<=MAX_WORKG_DAYS)){
             // generate a random number out of 0,1 and 2
@@ -138,12 +138,74 @@ public class EmpWageComputation {
         }
         return emp_daily_wage;
     }
+    /*
+    Use case 8: Employee wage multiple companies
+    */
+    public static void empWageMultiCompanies(){
+        System.out.println("Enter the number of companies whose wage need "
+                + "to be calculated: ");
+        Scanner sc = new Scanner(System.in);
+        int no_comp = sc.nextInt();
+        // declare an array of array
+        int[][] comp_norm = new int[no_comp][];
+        String [] comp_name = new String[no_comp];
+        
+        for (int i=0;i<no_comp;i++){
+            // Take input from user about each company
+            System.out.println("Enter name of company : ");
+            Scanner sc0 = new Scanner(System.in);
+            String company_nam = sc0.next();
+            System.out.println("Enter number of working days in "+company_nam+ " : ");
+            Scanner sc1 = new Scanner(System.in);
+            int working_days = sc1.nextInt();
+            System.out.println("Enter wage per hour in "+company_nam+ ": ");
+            Scanner sc2 = new Scanner(System.in);
+            int wage_per_hr = sc2.nextInt();
+            System.out.println("Enter number of working hours per month in "+company_nam+ ": ");
+            Scanner sc3 = new Scanner(System.in);
+            int working_hrs_per_month = sc3.nextInt();
+            System.out.println("Enter number of hours in full day in "+company_nam+ ": ");
+            Scanner sc4 = new Scanner(System.in);
+            int full_day_hours = sc4.nextInt();  
 
+            double emp_salary = monthlyEmployeeWageMulti(working_days,wage_per_hr,
+                    working_hrs_per_month,full_day_hours);
+            System.out.println("The monthly salary of the employee in "+ 
+                    company_nam +" = "+emp_salary);
+        }  
+    }
+    // calculate monthly wage of employee in different companies
+    public static double monthlyEmployeeWageMulti(int working_days,int wage_per_hr,
+            int working_hrs_per_month, int full_day_hours){
+        double emp_tot_wage = 0;
+        int days = 0, workg_hrs = 0, workg_days = 0;
+        
+        // Till maximum hours or maximum days are reached in a month
+        while ((days<working_days) && (workg_hrs<=working_hrs_per_month) 
+                && (days<=MAX_WORKG_DAYS)){
+            // generate a random number out of 0,1 and 2
+            int absent_or_part_or_full = (int)((Math.random())*10)%3;
+            // check if employee works part time or full time or is absent
+            switch (absent_or_part_or_full){
+                    case IS_ABSENT: // absent
+                        break;
+                    case IS_PART_TIME: // part time
+                        workg_hrs += full_day_hours/2;
+                        workg_days++;
+                        emp_tot_wage += 0.5*wage_per_hr*full_day_hours ;
+                        break;
+                    case IS_FULL_TIME: // full time
+                        workg_hrs += full_day_hours;
+                        workg_days++;
+                        emp_tot_wage += wage_per_hr*full_day_hours ;
+                        break;
+            }
+            days++;
+        }
+        return emp_tot_wage;
+    }
     // Main method
     public static void main(String []args){
-        
-        double tot_month_wage = empWageCalculate();
-        System.out.println("The total conditional monthly wage of the employee = " 
-                + tot_month_wage);
+        empWageMultiCompanies();
     }
 }
