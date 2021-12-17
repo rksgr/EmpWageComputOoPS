@@ -141,6 +141,7 @@ public class EmpWageComputation {
 
     // Main method
     public static void main(String []args){
+        
         double tot_month_wage = empWageCalculate();
         System.out.println("The total conditional monthly wage of the employee = " 
                 + tot_month_wage);
